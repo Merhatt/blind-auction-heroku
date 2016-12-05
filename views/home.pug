@@ -1,0 +1,18 @@
+extends index
+
+block content
+      header.jumbotron.hero-spacer
+      hr
+      .row
+        .col-lg-12
+          h3 Latest auctions
+      .row.text-center
+        each auction in result.auctions
+          .col-md-3.col-sm-6.hero-feature
+            .thumbnail
+              img.top-five-auction-image(src='/static/auctionimages/' + auction.id + '.jpg', alt='')
+              .caption
+                h3= auction.name
+                p= auction.item
+                p
+                  a.btn.btn-primary(href='/auctions/' + auction.id) Bid Now!

@@ -1,0 +1,113 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', ntnt='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    title BID SYSTEM
+    // Bootstrap Core CSS
+    link(href='/static/css/bootstrap.min.css', rel='stylesheet')
+    // Custom CSS
+    link(rel="icon", href="/static/img/logo.png")
+    link(href='/static/css/heroic-features.css', rel='stylesheet')
+    link(href='/static/css/login-styles.css', rel='stylesheet')
+    link(href='/static/css/profile-styles.css', rel='stylesheet')
+    link(href='/static/css/auctions-styles.css', rel='stylesheet')
+    link(href='/static/css/index-styles.css', rel='stylesheet')
+    link(href='/static/css/chat-styles.css', rel='stylesheet')
+    link(href='/static/css/auction-details-styles.css', rel='stylesheet')
+    link(href='../static/bower_components/toastr/toastr.css', rel='stylesheet')
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans', rel='stylesheet', type='text/css')
+    // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+    // WARNING: Respond.js doesn't work if you view the page via file://
+    //if lt IE 9
+      script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+      script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+  body
+    // Navigation
+    nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+      .container
+        // Brand and toggle get grouped for better mobile display
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          img.navbar-brand#logo(src='/static/img/logo.png')
+          a.navbar-brand(href='/home') Home
+          a.navbar-brand(href='/auctions') All Auctions
+          a.navbar-brand(href='/auctions/gallery') Gallery
+          if result.isAuthenticated
+            a.navbar-brand(href='/auctions/create') Create Auction
+            a.navbar-brand(href='/auctions/myAuctions') My Auctions
+          if result.isAuthenticated && result.user.IsAdmin
+            a.navbar-brand(href='/createAdmin') Make Admins
+        // Collect the nav links, forms, and other content for toggling
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+            .row
+                .pull-right
+                    ul.nav.navbar-nav
+                        li
+                            if result.isAuthenticated
+                                div.open-info
+                                    div.open-info-greeting
+                                        p= 'Hello, ' + result.user.username
+                                        hr
+                                    span.info-usernamea
+                                        a(href='/profile', style="display: inline-block;") Profile
+                                    br
+                                    span.info-logouta
+                                        a#logout-button(href='/logout', style="display: inline-block;") Log out
+                                span.profile-name= result.user.username
+                                img.mini-profile-image(src= result.imageUrl)
+                            else
+                                a#login-button(href='/login') Log in / Sign up
+        // /.navbar-collapse
+      // /.container
+    // Page Content
+    .container
+      // Jumbotron Header
+
+      //  h1 BID SYSTEM
+      //  p In our system you can take part in many different auctions and you may won it.
+
+      // Main content
+      block content
+      hr
+      // Footer
+      footer
+        .row
+          .col-lg-12
+            p Copyright © Your Website 2014
+    // /.container
+    // jQuery
+    script(src='/static/js/jquery.js')
+    // Bootstrap Core JavaScript
+    script(src='/static/js/bootstrap.min.js')
+    // Toastr
+    script(src='/static/bower_components/toastr/toastr.js')
+    //Timer
+    script(src='/static/bower_components/moment/moment.js')
+    // Chat
+    // Chat
+    if result.isAuthenticated
+        script(src='/socket.io/socket.io.js')
+        script(src='/static/js/chat-draw.js')
+        script(src='/static/js/socket-io-chat.js')
+    // Logout
+    script(src='/static/js/logout.js')
+    script(src='/static/bower_components/jquery/dist/jquery.js')
+    script(src='/static/bower_components/moment/moment.js')
+    script(src='/static/js/auctions-scroll.js')
+    script(src='/static/js/search.js')
+    script(src='/static/js/main.js')
+    script(src='/static/js/offers.js')
+    script(src='/static/js/comments.js')
+    script(src='/static/js/timer.js')
+    //Error handler
+    if error && error.errorOccured
+        span#errormessage(data-error-message= error.message)
+        script(src='/static/js/error-handler.js')

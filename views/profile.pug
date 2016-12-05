@@ -1,0 +1,21 @@
+extends index
+
+block content
+  .container
+    .fb-profile
+      img.fb-image-lg(align='left', src='/static/img/profilebackground.jpg', alt='Profile image example')
+      img.fb-image-profile.thumbnail(align='left', src= result.imageUrl, alt='Profile image')
+      if result.isAuthenticatedCurrent
+        form#image-upload(enctype="multipart/form-data", method="post", action="/image")
+          input.btn.btn-default.btn-xs(type="file", name="userPhoto")
+          input.btn.btn-primary.btn-xs(type="submit", name="submit", value="Upload profile image")
+      .fb-profile-text
+        h1.username= result.username
+      if result.isAuthenticatedCurrent
+        h3 Offers:
+        ul
+          each offer in result.offers
+            li
+              h4= 'Auction: ' + offer.auctionTitle	
+              h4= 'Money: ' + offer.amount
+              
